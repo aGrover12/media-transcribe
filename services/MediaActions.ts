@@ -1,11 +1,25 @@
+import { injectable, inject } from "inversify";
+import { Media }  from "../models/media";
+import { IMediaAcitons } from "./IMediaActions";
+import { Locator } from "../locators";
+import { IMediaRepository } from "../repositories/IMediaRepository";
 
-import { Media }  from "../models/media"
-export class MediaActions {
+@injectable()
+export class MediaAcitons implements IMediaAcitons {
+    private _repository: IMediaRepository;
+
+    public constructor(
+        @inject(Locator.IMediaRepository) repository: IMediaRepository
+    ) {
+        this._repository = repository;
+    }
+
     public uploadMedia(media : Media) {
         // We'll upload information to database from here
     }
 
-    public retrieveMedia(id: Number) {
+    public retrieveMedia(id: Number) : Media{
         // We'll pass the id to the database from here
+        return new Media;
     }
 }
