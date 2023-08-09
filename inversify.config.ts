@@ -1,8 +1,8 @@
 import { Container } from 'inversify';
 import { Locator } from "./locators";
 import { MediaAcitons } from "./services/MediaActions";
-import { IMediaRepository } from './repositories/IMediaRepository';
-import { StubRepository } from './repositories/stubRepository';
+import { IMediaRepository } from './interfaces/IMediaRepository';
+import { StubRepository } from './repositories/StubRepository';
 
 const container = new Container();
 container.bind<MediaAcitons>(Locator.IMediaAcitons).to(MediaAcitons);

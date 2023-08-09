@@ -1,8 +1,8 @@
-import { IMediaRepository } from '../repositories/IMediaRepository';
+import { IMediaRepository } from '../interfaces/IMediaRepository';
 import { Media } from '../models/media';
 
 export class StubRepository implements IMediaRepository {
-   private meidaInformation: Media[]
+   public meidaInformation: Media[] = [];
 
    public Insert(media: Media) : void {
         this.meidaInformation.push(media);
