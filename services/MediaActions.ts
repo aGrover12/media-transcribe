@@ -39,10 +39,6 @@ export class MediaAcitons implements IMediaAcitons {
 
     public retrieveMedia(id: Number) : Media{
         // We'll pass the id to the database from here
-        return new Media({
-            id: 1,
-            title: "TODO",
-            directory: "Not/Real/Fake"
-        });
+        return this._repository.Retrieve(id);
     }
 }

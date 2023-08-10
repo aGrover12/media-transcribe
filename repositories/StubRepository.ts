@@ -8,7 +8,7 @@ export class StubRepository implements IMediaRepository {
         this.meidaInformation.push(media);
    }
 
-   public Retrieve(id: number) : Media {
+   public Retrieve(id: Number) : Media {
     let media = <Media>this.meidaInformation.find(information => information.id === id);
     return media;
    }
