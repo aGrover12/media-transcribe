@@ -1,5 +1,5 @@
 import { IMediaRepository } from '../interfaces/IMediaRepository';
-import { Media } from '../models/media';
+import { Media } from '../models/Media';
 
 export class StubRepository implements IMediaRepository {
    public meidaInformation: Media[] = [];
@@ -8,7 +8,7 @@ export class StubRepository implements IMediaRepository {
         this.meidaInformation.push(media);
    }
 
-   public Retrieve(id: number) : Media {
+   public Retrieve(id: Number) : Media {
     let media = <Media>this.meidaInformation.find(information => information.id === id);
     return media;
    }
