@@ -1,5 +1,5 @@
 import { IMediaRepository } from '../interfaces/IMediaRepository';
-import { Media } from '../models/media';
+import { Media } from '../models/Media';
 
 export class StubRepository implements IMediaRepository {
    public meidaInformation: Media[] = [];
