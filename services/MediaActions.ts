@@ -5,6 +5,8 @@ import { IMediaAcitons } from "../interfaces/IMediaActions";
 import { Locator } from "../locators";
 import { IMediaRepository } from "../interfaces/IMediaRepository";
 import { InsertMediaResult } from "../models/InsertMediaResult";
+import { RetrieveMediaResult } from "../models/RetrieveMediaResult";
+import { Results } from "../constants/results";
 
 @injectable()
 export class MediaAcitons implements IMediaAcitons {
@@ -24,21 +26,38 @@ export class MediaAcitons implements IMediaAcitons {
 
             result = new InsertMediaResult({
                 successful: true,
-                message: "Successful Upload"
+                message: Results.SUCCESS
             });
         }
         catch(error) {
             result = new InsertMediaResult({
                 successful: false, 
-                message: `Failed to upload media due to the following error: ${error}`
+                message: `${Results.FAILURE}: ${error}`
             });
         }
 
         return result
     }
 
-    public retrieveMedia(id: Number) : Media{
+    public retrieveMedia(id: Number) : RetrieveMediaResult{
         // We'll pass the id to the database from here
-        return this._repository.Retrieve(id);
+        let result: RetrieveMediaResult;
+
+        try {
+         let media: Media =  this._repository.Retrieve(id);
+         result = new RetrieveMediaResult({
+            media: media,
+            successful: true,
+            message: Results.SUCCESS
+         });
+        }
+        catch(error) {
+            result = new RetrieveMediaResult({
+                successful: false,
+                message: `${Results.FAILURE}: ${error}`
+            });
+        }
+
+        return result;
     }
 }
