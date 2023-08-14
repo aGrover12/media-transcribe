@@ -3,7 +3,7 @@ import { MediaAcitons } from "../services/MediaActions";
 import { StubRepository } from '../repositories/StubRepository';
 import { Media } from '../models/Media';
 import { RetrieveMediaResult } from '../models/RetrieveMediaResult';
-import { Results } from '../constants/results';
+import { Results } from '../constants/Results';
 
 let repository: StubRepository = new StubRepository();
 let mediaActions: MediaAcitons = new MediaAcitons(repository);
