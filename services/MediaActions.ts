@@ -18,12 +18,11 @@ export class MediaAcitons implements IMediaAcitons {
         this._repository = repository;
     }
 
-    public uploadMedia(media : Media) {
+    public insertMedia(media : Media) {
         let result: InsertMediaResult;
 
         try {
             this._repository.Insert(media);
-
             result = new InsertMediaResult({
                 successful: true,
                 message: Results.SUCCESS
@@ -43,7 +42,16 @@ export class MediaAcitons implements IMediaAcitons {
         let result: RetrieveMediaResult;
 
         try {
-            result = this._repository.Retrieve(id);
+            let media = this._repository.Retrieve(id);
+            if (media === null || media === undefined) {
+                throw ("Media not found");
+            }
+
+            result = new RetrieveMediaResult({
+                media: media,
+                successful: true,
+                message: `${Results.SUCCESS}`
+            });
         }
         catch(error) {
             result = new RetrieveMediaResult({
