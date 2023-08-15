@@ -6,7 +6,7 @@ import { Locator } from "../locators";
 import { IMediaRepository } from "../interfaces/IMediaRepository";
 import { InsertMediaResult } from "../models/InsertMediaResult";
 import { RetrieveMediaResult } from "../models/RetrieveMediaResult";
-import { Results } from "../constants/results";
+import { Results } from "../constants/Results";
 
 @injectable()
 export class MediaAcitons implements IMediaAcitons {
@@ -18,12 +18,11 @@ export class MediaAcitons implements IMediaAcitons {
         this._repository = repository;
     }
 
-    public uploadMedia(media : Media) {
+    public insertMedia(media : Media) {
         let result: InsertMediaResult;
 
         try {
             this._repository.Insert(media);
-
             result = new InsertMediaResult({
                 successful: true,
                 message: Results.SUCCESS
@@ -40,16 +39,19 @@ export class MediaAcitons implements IMediaAcitons {
     }
 
     public retrieveMedia(id: Number) : RetrieveMediaResult{
-        // We'll pass the id to the database from here
         let result: RetrieveMediaResult;
 
         try {
-         let media: Media =  this._repository.Retrieve(id);
-         result = new RetrieveMediaResult({
-            media: media,
-            successful: true,
-            message: Results.SUCCESS
-         });
+            let media = this._repository.Retrieve(id);
+            if (media === null || media === undefined) {
+                throw ("Media not found");
+            }
+
+            result = new RetrieveMediaResult({
+                media: media,
+                successful: true,
+                message: `${Results.SUCCESS}`
+            });
         }
         catch(error) {
             result = new RetrieveMediaResult({
