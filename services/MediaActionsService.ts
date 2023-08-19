@@ -7,6 +7,7 @@ import { IMediaRepository } from "../interfaces/IMediaRepository";
 import { InsertMediaResult } from "../models/InsertMediaResult";
 import { RetrieveMediaResult } from "../models/RetrieveMediaResult";
 import { Results } from "../constants/Results";
+import { RetrieveAllMediaResult } from "../models/RetrieveAllMediaResult";
 
 @injectable()
 export class MediaAcitonsService implements IMediaAcitonsService {
@@ -17,7 +18,6 @@ export class MediaAcitonsService implements IMediaAcitonsService {
     ) {
         this._repository = repository;
     }
-
     public async insertMedia(media : Media) {
         let result: InsertMediaResult;
 
@@ -55,6 +55,28 @@ export class MediaAcitonsService implements IMediaAcitonsService {
         }
         catch(error) {
             result = new RetrieveMediaResult({
+                successful: false,
+                message: `${Results.FAILURE}: ${error}`
+            });
+        }
+
+        return result;
+    }
+
+    public async retrieveAll(): Promise<RetrieveAllMediaResult> {
+        let result: RetrieveAllMediaResult;
+
+        try {
+            let mediaList = await this._repository.RetrieveAll();
+            
+            result = new RetrieveAllMediaResult({
+                mediaList: mediaList,
+                successful: true,
+                message: `${Results.SUCCESS}`
+            });
+        }
+        catch(error) {
+            result = new RetrieveAllMediaResult({
                 successful: false,
                 message: `${Results.FAILURE}: ${error}`
             });
