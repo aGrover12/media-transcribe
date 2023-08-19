@@ -4,5 +4,5 @@ import { RetrieveMediaResult } from "../models/RetrieveMediaResult";
 
 export interface IMediaRepository {
     Insert : (media: Media)  =>  void; 
-    Retrieve : (id: Number) => Media;
+    Retrieve : (id: Number) => Promise<Media>;
 }

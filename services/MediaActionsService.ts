@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { injectable, inject } from "inversify";
 import { Media }  from "../models/Media";
-import { IMediaAcitons } from "../interfaces/IMediaActions";
+import { IMediaAcitonsService } from "../interfaces/IMediaActionsService";
 import { Locator } from "../locators";
 import { IMediaRepository } from "../interfaces/IMediaRepository";
 import { InsertMediaResult } from "../models/InsertMediaResult";
@@ -9,7 +9,7 @@ import { RetrieveMediaResult } from "../models/RetrieveMediaResult";
 import { Results } from "../constants/Results";
 
 @injectable()
-export class MediaAcitons implements IMediaAcitons {
+export class MediaAcitonsService implements IMediaAcitonsService {
     private _repository: IMediaRepository;
 
     public constructor(
@@ -18,11 +18,11 @@ export class MediaAcitons implements IMediaAcitons {
         this._repository = repository;
     }
 
-    public insertMedia(media : Media) {
+    public async insertMedia(media : Media) {
         let result: InsertMediaResult;
 
         try {
-            this._repository.Insert(media);
+           await this._repository.Insert(media);
             result = new InsertMediaResult({
                 successful: true,
                 message: Results.SUCCESS
@@ -38,11 +38,11 @@ export class MediaAcitons implements IMediaAcitons {
         return result
     }
 
-    public retrieveMedia(id: Number) : RetrieveMediaResult{
+    public async retrieveMedia(id: Number) : Promise<RetrieveMediaResult>{
         let result: RetrieveMediaResult;
 
         try {
-            let media = this._repository.Retrieve(id);
+            let media = await this._repository.Retrieve(id);
             if (media === null || media === undefined) {
                 throw ("Media not found");
             }
