@@ -2,7 +2,6 @@ import { test, expect } from '@jest/globals';
 import { MediaAcitonsService } from "../services/MediaActionsService";
 import { StubRepository } from '../repositories/StubRepository';
 import { Media } from '../models/Media';
-import { RetrieveMediaResult } from '../models/RetrieveMediaResult';
 import { Results } from '../constants/Results';
 
 let repository: StubRepository = new StubRepository();
