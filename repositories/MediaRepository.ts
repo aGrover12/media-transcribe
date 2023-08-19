@@ -1,13 +1,10 @@
-import { Results } from "../constants/Results";
 import { IMediaRepository } from "../interfaces/IMediaRepository";
-import { InsertMediaResult } from "../models/InsertMediaResult";
 import { Media } from "../models/Media";
 
-let dbmgr = require("./DatabaseManager"); 
-let db = dbmgr.db;
+let Dbmgr = require("./DatabaseManager");
+let db = Dbmgr.db;
 
 export class MediaRepository implements IMediaRepository {
-
     public async Insert(media: Media)
     {
         const query = `INSERT INTO MediaInfo (Title, Directory) VALUES (?, ?)`
@@ -21,4 +18,9 @@ export class MediaRepository implements IMediaRepository {
         return media;
     };
 
+    public async RetrieveAll(): Promise<Media[]> {
+        const query = `SELECT * FROM MediaInfo`;    
+        let media: Media[] = await <Media[]> db.prepare(query).all();
+        return media;
+    }
 }

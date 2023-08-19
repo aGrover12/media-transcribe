@@ -4,12 +4,16 @@ import { Media } from '../models/Media';
 export class StubRepository implements IMediaRepository {
    public meidaInformation: Media[] = [];
 
-   public Insert(media: Media) : void {
-        this.meidaInformation.push(media);
+   public Insert(media: Media): void {
+      this.meidaInformation.push(media);
    }
 
-   public async Retrieve(id: Number) : Promise<Media> {
+   public async Retrieve(id: Number): Promise<Media> {
     let media = <Media>this.meidaInformation.find(information => information.id === id);
     return media;
    }
+
+  public async RetrieveAll(): Promise<Media[]> {
+   return this.meidaInformation;
+  }  
 }  
