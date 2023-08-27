@@ -1,5 +1,6 @@
 import socket;
 import threading;
+import whisperService;
 
 HEADER = 64
 PORT = 5050
@@ -19,8 +20,9 @@ def handle_client(conn, addr):
         if msg_length:
             msg_length = int(msg_length)
             msg = conn.recv(msg_length).decode(FORMAT)
-
             print(f"[{addr}] {msg}")
+            params = msg.split(",")
+            whisperService.whisperService.transcribe(params[0], params[1], params[2], params[3])
 
     conn.close()
 

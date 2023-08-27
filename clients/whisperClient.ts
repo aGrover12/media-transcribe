@@ -1,12 +1,9 @@
 const net = require('net');
-const os = require('os');
 const ip = require("ip");
 const utf8  = require("utf8");
 
 var host = ip.address();
 var port = 5050;
-
-const HEADER: Number = 64
 
 console.log("HOSTNAME: " + host)
 
@@ -27,3 +24,5 @@ var send = (msg: String) => {
     socket.write(encodedMsgLength);
     socket.write(msg);
  }
+
+ export { send } 
