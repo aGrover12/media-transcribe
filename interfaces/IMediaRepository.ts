@@ -1,7 +1,8 @@
 import { Media } from "../models/Media";
 
 export interface IMediaRepository {
-    Insert: (media: Media)  =>  void; 
-    Retrieve: (id: Number) => Promise<Media>;
-    RetrieveAll: () => Promise<Media[]>;
+    insert: (media: Media)  =>  void; 
+    retrieve: (id: Number) => Promise<Media>;
+    retrieveAll: () => Promise<Media[]>;
+    remove: (id: Number) => void;
 }

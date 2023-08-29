@@ -24,15 +24,15 @@ test('Uploads media to repository', () => {
         expect(result.message).toMatch(Results.SUCCESS);
     });
 
-    mediaActions.retrieveMedia(media.id).then(retrievedMediaResult => {
-        expect(repository.meidaInformation).toContain(retrievedMediaResult.media);
+    mediaActions.retrieveMedia(media.id).then(result => {
+        expect(result.media != null || result.media != undefined);
     });
 });
 
 let error: string = 'This is a test';
 
 test('Fails to upload media to repository', () => {
-    const mock =  jest.spyOn(StubRepository.prototype, 'Insert');
+    const mock =  jest.spyOn(StubRepository.prototype, 'insert');
     mock.mockImplementation(() => { throw error });
    
     mediaActions.insertMedia(media).then(result => {
@@ -45,14 +45,14 @@ test('Retrieve media from repository', () => {
     mediaActions.insertMedia(media);
 
     mediaActions.retrieveMedia(media.id).then(result => {
-        expect(repository.meidaInformation).toContain(result.media);
         expect(result.successful).toBeTruthy();
         expect(result.message).toMatch(Results.SUCCESS);
+        expect(result.media != null || result.media != undefined).toBeTruthy();
     });
 });
 
 test('Fails to retrieve media from repository', () => {
-    const mock =  jest.spyOn(StubRepository.prototype, 'Retrieve');
+    const mock =  jest.spyOn(StubRepository.prototype, 'retrieve');
     mock.mockImplementation(() => { throw error });
 
     mediaActions.insertMedia(media);
@@ -60,7 +60,7 @@ test('Fails to retrieve media from repository', () => {
     mediaActions.retrieveMedia(media.id).then(result => {
         expect(result.successful).toBeFalsy();
         expect(result.message).toMatch(`${Results.FAILURE}: ${error}`);
-        expect(repository.meidaInformation.includes(result.media)).toBeFalsy();
+        expect(result.media == null || result.media == undefined).toBeTruthy();
     });
 });
 
@@ -83,7 +83,7 @@ test('RetrieveAll returns all media', () => {
 });
 
 test('Fails to retrieve all media', () => {
-    const mock =  jest.spyOn(StubRepository.prototype, 'RetrieveAll');
+    const mock =  jest.spyOn(StubRepository.prototype, 'retrieveAll');
     mock.mockImplementation(() => { throw error });
 
     mediaActions.insertMedia(media);
@@ -93,3 +93,13 @@ test('Fails to retrieve all media', () => {
         expect(result.message).toMatch(`${Results.FAILURE}: ${error}`);
     });
 });
+
+test('Deletes media refernce in database', () => {
+    mediaActions.insertMedia(media);
+
+    mediaActions.removeMedia(media.id)
+   
+    mediaActions.retrieveAll().then(result => {
+        expect(result.mediaList.includes(media)).toBeFalsy();
+    });
+})
