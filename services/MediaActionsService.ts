@@ -8,6 +8,7 @@ import { InsertMediaResult } from "../models/InsertMediaResult";
 import { RetrieveMediaResult } from "../models/RetrieveMediaResult";
 import { Results } from "../constants/Results";
 import { RetrieveAllMediaResult } from "../models/RetrieveAllMediaResult";
+import { RemoveMediaResult } from "../models/RemoveMediaResult";
 
 @injectable()
 export class MediaAcitonsService implements IMediaAcitonsService {
@@ -22,7 +23,7 @@ export class MediaAcitonsService implements IMediaAcitonsService {
         let result: InsertMediaResult;
 
         try {
-           await this._repository.Insert(media);
+           await this._repository.insert(media);
             result = new InsertMediaResult({
                 successful: true,
                 message: Results.SUCCESS
@@ -38,11 +39,31 @@ export class MediaAcitonsService implements IMediaAcitonsService {
         return result
     }
 
-    public async retrieveMedia(id: Number) : Promise<RetrieveMediaResult>{
+    public async removeMedia(id: Number) : Promise<RemoveMediaResult> {
+        let result: RemoveMediaResult;
+
+        try {
+            await this._repository.remove(id);
+            result = new RemoveMediaResult({
+                successful: true,
+                message: Results.SUCCESS
+            });
+        }
+        catch(error) {
+            result = new RemoveMediaResult({
+                successful: false, 
+                message: `${Results.FAILURE}: ${error}`
+            });
+        }
+
+        return result;
+    }
+
+    public async retrieveMedia(id: Number) : Promise<RetrieveMediaResult> {
         let result: RetrieveMediaResult;
 
         try {
-            let media = await this._repository.Retrieve(id);
+            let media = await this._repository.retrieve(id);
             if (media === null || media === undefined) {
                 throw ("Media not found");
             }
@@ -67,7 +88,7 @@ export class MediaAcitonsService implements IMediaAcitonsService {
         let result: RetrieveAllMediaResult;
 
         try {
-            let mediaList = await this._repository.RetrieveAll();
+            let mediaList = await this._repository.retrieveAll();
             
             result = new RetrieveAllMediaResult({
                 mediaList: mediaList,
