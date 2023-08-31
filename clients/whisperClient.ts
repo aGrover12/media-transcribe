@@ -12,7 +12,7 @@ socket.connect(port, host, () => {
     console.log("Connected to server");
 });
 
-socket.on('data', (data) => {
+socket.on('data', (data: any) => {
     console.log(`${data}`);
     socket.destroy();
 });

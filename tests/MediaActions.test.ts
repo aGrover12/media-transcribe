@@ -99,7 +99,7 @@ test('Deletes media refernce in database', () => {
 
     mediaActions.removeMedia(media.id)
    
-    mediaActions.retrieveAll().then(result => {
-        expect(result.mediaList.includes(media)).toBeFalsy();
+    mediaActions.retrieveAll().then(results => {
+        expect(results.mediaList?.includes(media)).toBeFalsy();
     });
 })
