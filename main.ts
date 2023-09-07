@@ -1,5 +1,3 @@
-import { container } from "./inversify.config";
-import { Locator } from "./locators";
 import { IMediaRepository } from "./interfaces/IMediaRepository";
 import { IMediaAcitonsService } from "./interfaces/IMediaActionsService";
 import { app, BrowserWindow } from "electron";
@@ -7,13 +5,8 @@ import { MediaAcitonsService } from "./services/MediaActionsService";
 import { MediaRepository } from "./repositories/MediaRepository";
 import { RetrieveAllMediaResult } from "./models/RetrieveAllMediaResult";
 
-// Resolved dependencies
-container.get<IMediaAcitonsService>(Locator.IMediaAcitons);
-container.get<IMediaRepository>(Locator.IMediaRepository);
-
- let mediaRepository: IMediaRepository = new MediaRepository();
- let mediaActionsService: IMediaAcitonsService = new MediaAcitonsService(mediaRepository);
-
+let mediaRepository: IMediaRepository = new MediaRepository();
+let mediaActionsService: IMediaAcitonsService = new MediaAcitonsService(mediaRepository);
 let media: RetrieveAllMediaResult;
 
 function createWindow() {
