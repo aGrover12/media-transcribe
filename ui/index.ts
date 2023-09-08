@@ -1,10 +1,14 @@
 import { Media } from "../models/Media";
 import { ipcRenderer } from "electron";
 
-console.log("triggered")
+console.log("TESTING")
 
-ipcRenderer.on('media', (_, media) => {
-    const table = document.querySelector('table');
+console.log(ipcRenderer)
+
+ipcRenderer.on('mediaList', (event, media) => {
+    console.log("TESTING 2 " + event)
+
+    const table = document.getElementById('mediaTable');
 
     console.log("INNER: " + media)
 
@@ -20,5 +24,5 @@ ipcRenderer.on('media', (_, media) => {
         return html;
     }, '');
 
-    table!.innerHTML = mediaRows 
+    table!.innerHTML += mediaRows 
 });

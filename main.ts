@@ -8,14 +8,13 @@ import { RetrieveAllMediaResult } from "./models/RetrieveAllMediaResult";
 let mediaRepository: IMediaRepository = new MediaRepository();
 let mediaActionsService: IMediaAcitonsService = new MediaAcitonsService(mediaRepository);
 let media: RetrieveAllMediaResult;
-
 function createWindow() {
     const mainWindow = new BrowserWindow({
       height: 600,
       width: 800,
       webPreferences: {
         nodeIntegration: true,
-        contextIsolation: false
+        contextIsolation: false,
     }
     });
 
@@ -26,7 +25,12 @@ function createWindow() {
   
     mainWindow.webContents.openDevTools();
 
-    mainWindow.webContents.send('media', media.mediaList)
+   
+    console.log("MEDIA WAS SENT")
+
+    mainWindow.webContents.on('did-finish-load', function () {
+      mainWindow.webContents.send('mediaList', media.mediaList);
+  });
   }
   
   app.whenReady().then(() => {
