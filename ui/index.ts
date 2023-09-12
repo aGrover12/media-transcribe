@@ -1,28 +1,23 @@
 import { Media } from "../models/Media";
 import { ipcRenderer } from "electron";
 
-console.log("TESTING")
-
-console.log(ipcRenderer)
-
-ipcRenderer.on('mediaList', (event, media) => {
-    console.log("TESTING 2 " + event)
-
-    const table = document.getElementById('mediaTable');
-
-    console.log("INNER: " + media)
+ipcRenderer.on('mediaList', (_, media) => {
+    const tableBody = document.getElementById('tableBody');
 
     const mediaRows = media.reduce((html: string, file: Media) => {
         html += 
         `<tr>
-            <th>${file.id}</th>
-            <th>${file.title}</th>
-            <th>${file.directory}</th>
-            <th>actions</th>
+            <td class="index">${file.id}</td>
+            <td>${file.title}</td>
+            <td>${file.directory}</td>
+            <td>
+                <button type="button" class="btn btn-light btn-sm">T</button>
+                <button type="button" class="btn btn-light btn-sm">D</button>
+            </td>
         </tr>`
 
         return html;
     }, '');
 
-    table!.innerHTML += mediaRows 
+    tableBody!.innerHTML += mediaRows 
 });

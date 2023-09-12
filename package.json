@@ -35,6 +35,7 @@
     "extract-zip": "^2.0.1",
     "fd-slicer": "^1.1.0",
     "fluent-ffmpeg": "^2.1.2",
+    "font-awesome": "^4.7.0",
     "fs-extra": "^8.1.0",
     "function-bind": "^1.1.1",
     "get-intrinsic": "^1.2.1",

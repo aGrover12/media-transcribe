@@ -10,24 +10,21 @@ let mediaActionsService: IMediaAcitonsService = new MediaAcitonsService(mediaRep
 let media: RetrieveAllMediaResult;
 function createWindow() {
     const mainWindow = new BrowserWindow({
-      height: 600,
+      height: 400,
       width: 800,
+      autoHideMenuBar: true,
+      resizable: false,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
+        devTools: false
     }
     });
 
-    console.log("CREATE WINDOW: " + media.mediaList);
-  
-
     mainWindow.loadFile("../ui/index.html");
-  
+
     mainWindow.webContents.openDevTools();
-
    
-    console.log("MEDIA WAS SENT")
-
     mainWindow.webContents.on('did-finish-load', function () {
       mainWindow.webContents.send('mediaList', media.mediaList);
   });
@@ -37,7 +34,6 @@ function createWindow() {
     mediaActionsService.retrieveAll()
     .then(result => {
       media = result
-      console.log("TEST: " +  media)
       createWindow();
     });
 

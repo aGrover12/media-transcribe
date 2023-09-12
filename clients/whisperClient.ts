@@ -9,7 +9,6 @@ console.log("HOSTNAME: " + host)
 
 var socket = new net.Socket();
 socket.connect(port, host, () => {
-    console.log("Connected to server");
 });
 
 socket.on('data', (data: any) => {

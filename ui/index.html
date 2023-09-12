@@ -3,20 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="./index.css">
         <title>Electron Application</title>
     </head>
     <body>
-        <table class="table" id="mediaTable">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Directory</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tr></tr>
-        </table>
+        <div class="scrollable">
+            <table class="fixed_header table table-bordered table-striped table-dark mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col"><button class="btn btn-secondary btn-sm plus"><i class="fa fa-plus"></i></button></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Directory</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    <tbody id="tableBody"></tbody>
+                </thead>
+            </table>
+        </div>
     </body>
 </html>
 
