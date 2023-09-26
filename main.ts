@@ -32,7 +32,7 @@ function createMainWindow() {
 
   function createTranscribeWindow() {
     const transcribeWindow = new BrowserWindow({
-      height: 200,
+      height: 225,
       width: 400,
       autoHideMenuBar: true,
       resizable: false,
@@ -63,8 +63,8 @@ function createMainWindow() {
 
   app.on('window-all-closed', () => {
     app.quit()
-  })
+  });
 
   ipcMain.on('sendMedia', (_ , media) => {
       createTranscribeWindow()
-  })
+  });

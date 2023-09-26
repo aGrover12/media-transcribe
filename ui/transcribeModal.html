@@ -3,17 +3,44 @@
     <link rel="stylesheet" type="text/css" href="./transcribeModal.css">
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <p>Are you sure that you want to transcribe this media?</p>
+    <form>
+    <div class="form-group top">
+        <select class="form-control p-1" id="exampleFormControlSelect1" placeholder="Enter email">
+            <option value="" disabled selected>File Type</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        </div>  
+        <div class="form-group">
+        <select class="form-control p-1" id="exampleFormControlSelect1" >
+            <option value="" disabled selected>Language</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        </div>  
+        <div class="form-group">
+        <select class="form-control p-1" id="exampleFormControlSelect1">
+            <option value="" disabled selected>Model</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
         </div>
         <div class="row">
             <div class="col cancel-btn">
-                <button type="button" class="btn btn-secondary btn-lg">Cancel</button>
+                <button type="button" class="btn btn-secondary">Cancel</button>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-primary btn-lg">Transcribe</button>
+                <button type="submit" class="btn btn-primary">Transcribe</button>
             </div>
         </div>
-      </div>
+      </form>
 </body>

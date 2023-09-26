@@ -1,14 +1,28 @@
+.cancel-btn {
+    text-align: end;
+}
+
 .container {
     font-family: arial;
     font-size: 24px;
     width: 370px;
     height: 200px;
 }
-
-.cancel-btn {
-    text-align: end;
-}
   
+.form-control {
+    width: 275px;
+}
+
+.form-group {
+    margin-bottom: 5px;
+    justify-content: center;
+    display: flex;
+}
+
+.top {
+    margin-top: 12px;
+}
+
 body {
     background: #32383e;
     overflow-y: hidden;
