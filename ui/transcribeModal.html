@@ -4,43 +4,32 @@
 </head>
 <body>
     <form>
-    <div class="form-group top">
-        <select class="form-control p-1" id="exampleFormControlSelect1" placeholder="Enter email">
+        <div class="file-name" id="fileName"></div>
+        <div class="form-group">
+        <select class="form-control p-1" id="fileTypes" placeholder="Enter email">
             <option value="" disabled selected>File Type</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
         </select>
         </div>  
         <div class="form-group">
-        <select class="form-control p-1" id="exampleFormControlSelect1" >
+        <select class="form-control p-1" id="languages" >
             <option value="" disabled selected>Language</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
         </select>
         </div>  
         <div class="form-group">
-        <select class="form-control p-1" id="exampleFormControlSelect1">
+        <select class="form-control p-1" id="models">
             <option value="" disabled selected>Model</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
         </select>
         </div>
         <div class="row">
             <div class="col cancel-btn">
-                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button>
             </div>
             <div class="col">
-                <button type="submit" class="btn btn-primary">Transcribe</button>
+                <button type="button" class="btn btn-primary">Transcribe</button>
             </div>
         </div>
       </form>
 </body>
+
+<script>var exports = {};</script>
+<script src="../dist/ui/transcribeModal.js"></script>

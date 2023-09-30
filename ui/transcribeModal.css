@@ -6,14 +6,14 @@
     font-family: arial;
     font-size: 24px;
     width: 370px;
-    height: 200px;
+    height: 225px;
 }
   
-.form-control {
+.form-control, .input {
     width: 275px;
 }
 
-.form-group {
+.form-group, .file-name {
     margin-bottom: 5px;
     justify-content: center;
     display: flex;
