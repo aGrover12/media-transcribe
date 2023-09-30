@@ -1,0 +1,40 @@
+.cancel-btn {
+    text-align: end;
+}
+
+.container {
+    font-family: arial;
+    font-size: 24px;
+    width: 370px;
+    height: 225px;
+}
+  
+.form-control, .input {
+    width: 275px;
+}
+
+.form-group, .file-name {
+    margin-bottom: 5px;
+    justify-content: center;
+    display: flex;
+}
+
+.top {
+    margin-top: 12px;
+}
+
+body {
+    background: #32383e;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+button {
+    height: 50;
+    width: 125;
+}
+
+p {
+    text-align: center;
+    color: #fff;;
+}

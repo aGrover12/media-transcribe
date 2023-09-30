@@ -1,0 +1,35 @@
+<head> 
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./transcribeModal.css">
+</head>
+<body>
+    <form>
+        <div class="file-name" id="fileName"></div>
+        <div class="form-group">
+        <select class="form-control p-1" id="fileTypes" placeholder="Enter email">
+            <option value="" disabled selected>File Type</option>
+        </select>
+        </div>  
+        <div class="form-group">
+        <select class="form-control p-1" id="languages" >
+            <option value="" disabled selected>Language</option>
+        </select>
+        </div>  
+        <div class="form-group">
+        <select class="form-control p-1" id="models">
+            <option value="" disabled selected>Model</option>
+        </select>
+        </div>
+        <div class="row">
+            <div class="col cancel-btn">
+                <button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary">Transcribe</button>
+            </div>
+        </div>
+      </form>
+</body>
+
+<script>var exports = {};</script>
+<script src="../dist/ui/transcribeModal.js"></script>
