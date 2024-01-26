@@ -1,6 +1,6 @@
 import { IMediaRepository } from "./interfaces/IMediaRepository";
 import { IMediaAcitonsService } from "./interfaces/IMediaActionsService";
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, ipcMain, BrowserWindow, dialog } from "electron";
 import { MediaAcitonsService } from "./services/MediaActionsService";
 import { MediaRepository } from "./repositories/MediaRepository";
 import { RetrieveAllMediaResult } from "./models/RetrieveAllMediaResult";
@@ -8,12 +8,12 @@ import { Media } from "./models/Media";
 
 let mediaRepository: IMediaRepository = new MediaRepository();
 let mediaActionsService: IMediaAcitonsService = new MediaAcitonsService(mediaRepository);
-let mediaList: RetrieveAllMediaResult;
+let mediaListResult: RetrieveAllMediaResult;
 
 app.whenReady().then(() => {
   mediaActionsService.retrieveAll()
   .then(result => {
-    mediaList = result
+    mediaListResult = result
     if (BrowserWindow.getAllWindows().length === 0) {
       let mainWindow = createMainWindow();
       ipcMain.on('sendMedia', (_, media) => {
@@ -27,10 +27,12 @@ app.on('window-all-closed', () => {
   app.quit()
 });
 
-function createMainWindow(): BrowserWindow {
-  let mainWindow: BrowserWindow = new BrowserWindow({
-    height: 400,
-    width: 800,
+let mainWindow: BrowserWindow;
+
+function createMainWindow() {
+  mainWindow = new BrowserWindow({
+    height: 405,
+    width: 1200,
     autoHideMenuBar: true,
     resizable: false,
     webPreferences: {
@@ -39,20 +41,21 @@ function createMainWindow(): BrowserWindow {
       devTools: true
   }
   });
-
+  
   mainWindow.loadFile("../ui/index.html");
 
   mainWindow.webContents.openDevTools();
   
   mainWindow.webContents.on('did-finish-load', function () {
-    mainWindow.webContents.send('mediaList', mediaList.mediaList);
-});
+    mainWindow.webContents.send('mediaList', mediaListResult.mediaList);
+  });
 
 return mainWindow;
 }
 
+let transcribeWindow: BrowserWindow;
 function createTranscribeWindow(mainWindow: BrowserWindow, media: Media) {
-  let transcribeWindow: BrowserWindow =  new BrowserWindow({
+  transcribeWindow =  new BrowserWindow({
     parent: mainWindow,
     modal: true,
     show: false,
@@ -70,14 +73,48 @@ function createTranscribeWindow(mainWindow: BrowserWindow, media: Media) {
   transcribeWindow.loadFile('../ui/transcribeModal.html'); 
   transcribeWindow.once("show",() => {
     transcribeWindow.webContents.send("mediaToTranscribe", media);
-    transcribeWindow.webContents.openDevTools();
   });
 
   transcribeWindow.once("ready-to-show", () => {
     transcribeWindow.show();
   });
-
-  ipcMain.on('close', () => {
-    transcribeWindow.destroy();
-  });
 }
+
+ipcMain.handle("showDialog", () => {
+  dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [
+        {name: 'Video', extensions: ['mp4','mpeg','webm']},
+        {name: 'Audio', extensions: ['mp3','m4a','wav','mpga']}
+    ]
+  })
+  .then(result => {
+    var unescapedSlashes  = result.filePaths[0].replace(/\/\//g, "/");
+    var splitFilePath = unescapedSlashes.split('\\');
+
+    var fileName = splitFilePath[splitFilePath.length-1];
+    var directory = unescapedSlashes.split(fileName)[0];
+
+
+    let media: Media = new Media({
+        title: fileName,
+        directory: directory
+      });
+
+    mediaActionsService.insertMedia(media)
+    .then(result => {
+        if(result.successful)
+        {
+          mediaActionsService.retrieveAll()
+          .then(result => {
+            mainWindow.webContents.send('mediaList', result.mediaList);
+          });
+        }
+    })
+  });
+})
+
+
+ipcMain.on('close', () => {
+  transcribeWindow.destroy();
+});

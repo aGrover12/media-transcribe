@@ -24,7 +24,7 @@ test('Uploads media to repository', () => {
         expect(result.message).toMatch(Results.SUCCESS);
     });
 
-    mediaActions.retrieveMedia(media.id).then(result => {
+    mediaActions.retrieveMedia(media.id!).then(result => {
         expect(result.media != null || result.media != undefined);
     });
 });
@@ -44,7 +44,7 @@ test('Fails to upload media to repository', () => {
 test('Retrieve media from repository', () => {
     mediaActions.insertMedia(media);
 
-    mediaActions.retrieveMedia(media.id).then(result => {
+    mediaActions.retrieveMedia(media.id!).then(result => {
         expect(result.successful).toBeTruthy();
         expect(result.message).toMatch(Results.SUCCESS);
         expect(result.media != null || result.media != undefined).toBeTruthy();
@@ -57,7 +57,7 @@ test('Fails to retrieve media from repository', () => {
 
     mediaActions.insertMedia(media);
 
-    mediaActions.retrieveMedia(media.id).then(result => {
+    mediaActions.retrieveMedia(media.id!).then(result => {
         expect(result.successful).toBeFalsy();
         expect(result.message).toMatch(`${Results.FAILURE}: ${error}`);
         expect(result.media == null || result.media == undefined).toBeTruthy();
@@ -65,7 +65,7 @@ test('Fails to retrieve media from repository', () => {
 });
 
 test('Retrieve comes back empty', () => {
-    mediaActions.retrieveMedia(media.id).then(result => {
+    mediaActions.retrieveMedia(media.id!).then(result => {
         expect(result.media).toBeUndefined();
         expect(result.successful).toBeFalsy();
         expect(result.message).toEqual(`${Results.FAILURE}: Media not found`);
@@ -97,7 +97,7 @@ test('Fails to retrieve all media', () => {
 test('Deletes media refernce in database', () => {
     mediaActions.insertMedia(media);
 
-    mediaActions.removeMedia(media.id)
+    mediaActions.removeMedia(media.id!)
    
     mediaActions.retrieveAll().then(results => {
         expect(results.mediaList?.includes(media)).toBeFalsy();

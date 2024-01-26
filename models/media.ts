@@ -1,5 +1,5 @@
 export class Media {
-    id: Number;
+    id?: Number;
     title: String;
     directory: String;
 
