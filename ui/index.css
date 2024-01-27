@@ -7,8 +7,7 @@
 
 .fixed_header tbody{
     display:block;
-    overflow: auto;
-    height: 100px;
+    height: 350px;
 }
 
 .fixed_header thead tr {
@@ -24,9 +23,16 @@
     padding-bottom: 15px;
 }
 
-.fixed_header th, .fixed_header td {
+.fixed_header th {
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.fixed_header td {
     text-align: left;
-    min-width: 200px;
+    min-width: 300px;
+    max-width: 300px;
+    word-wrap: break-word;
 }   
 
 .index {
@@ -61,5 +67,9 @@
 body {
     background: #32383e;
     overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+tbody {
     overflow-x: hidden;
 }
